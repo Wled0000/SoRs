@@ -17,13 +17,13 @@ def time_to_seconds(time):
 
 ## Commands --------------------------------
 
-@Client.on_message(filters.command("song") & ~filters.channel & ~filters.edited)
+@Client.on_message(filters.command("بحث") & ~filters.channel & ~filters.edited)
 def a(client, message):
     query = ''
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    m = message.reply('`Searching... Please Wait...`')
+    m = message.reply('`جاري البحث... أرجو الإنتظار...`')
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = []
@@ -54,21 +54,21 @@ def a(client, message):
 
         except Exception as e:
             print(e)
-            m.edit('**Found Literary Noting. Please Try Another Song or Use Correct Spelling!**')
+            m.edit('**تم العثور على تدوين أدبي. يرجى محاولة أغنية أخرى أو استخدام الهجاء الصحيح!**')
             return
     except Exception as e:
         m.edit(
-            "**Enter Song Name with Command**❗\nFor Example: `/song Alone Marshmellow`"
+            "**أدخل اسم الأغنية مع الأمر**❗\nمثال: `/بحث محمد السالم اعوف الدنيا`"
         )
         print(str(e))
         return
-    m.edit("`Uploading... Please Wait...`")
+    m.edit("`جاري التحميل .. الرجاء الانتظار...`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = f'🏷 <b>Title:</b> <a href="{link}">{title}</a>\n⏳ <b>Duration:</b> <code>{duration}</code>\n👀 <b>Views:</b> <code>{views}</code>\n🎧 <b>Requested By:</b> {message.from_user.mention()} \n📤 <b>Uploaded By: @Darkridersslk</b> 👑'
+        rep = f'🏷 <b>عنوان:</b> <a href="{link}">{title}</a>\n⏳ <b>المدة:</b> <code>{duration}</code>\n👀 <b>المشاهدات:</b> <code>{views}</code>\n🎧 <b>طلب من:</b> {message.from_user.mention()} \n📤 <b>تم التحميل بواسطة: @Rr8R9</b> 👑'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
@@ -77,7 +77,7 @@ def a(client, message):
         m.delete()
         message.delete()
     except Exception as e:
-        m.edit('**An Error Occured. Please Report This To @SDBOTz !!**')
+        m.edit('**حدث خطأ.  الرجاء الإبلاغ عن هذا @rr8r9 !!**')
         print(e)
     try:
         os.remove(audio_file)
