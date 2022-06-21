@@ -31,12 +31,12 @@ class MusicPlayer(object):
     async def send_playlist(self):
         playlist = self.playlist
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **قائمة تشغيل فارغة!**"
         else:
             if len(playlist) == 1:
-                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **قائمة التشغيل**:\n"
             else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.PLAY_BUTTON} **قائمة التشغيل**:\n"
             pl += "\n".join([
                 f"**{i}**. **{x.audio.title}**"
                 for i, x in enumerate(playlist)
