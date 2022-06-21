@@ -23,7 +23,7 @@ async def current_vc_filter(_, __, m: Message):
 current_vc = filters.create(current_vc_filter)
 
 
-@Client.on_message((current_vc & filters.command("play") | (current_vc & filters.audio & filters.private))
+@Client.on_message((current_vc & filters.command("تشغيل") | (current_vc & filters.audio & filters.private))
 )
 async def play_track(client, m: Message):
     group_call = mp.group_call
@@ -34,19 +34,19 @@ async def play_track(client, m: Message):
         m_audio = m.reply_to_message
     else:
         chat_id=m.from_user.id
-        await client.send_message(text="You Didn't Gave Me Anything To Play. Send Me An Audio File or Reply /play To An Audio File!", chat_id=chat_id)
+        await client.send_message(text="أنت لم تعطني أي شيء لألعبه.  أرسل لي ملف صوتي أو قم بالرد / التشغيل على ملف صوتي!", chat_id=chat_id)
         if LOG_GROUP:
             await mp.send_playlist()
         return
     if playlist and playlist[-1].audio.file_unique_id \
             == m_audio.audio.file_unique_id:
-        await m.reply_text(f"{emoji.ROBOT} **Already Added!**")
+        await m.reply_text(f"{emoji.ROBOT} **تم الاضافة مسبقا!**")
         return
     # add to playlist
     playlist.append(m_audio)
     if len(playlist) == 1:
         m_status = await m.reply_text(
-            f"{emoji.INBOX_TRAY} **Downloading & Transcoding...**"
+            f"{emoji.INBOX_TRAY} **جاري التحميل...**"
         )
         await mp.download_audio(playlist[0])
         group_call.input_filename = os.path.join(
@@ -58,12 +58,12 @@ async def play_track(client, m: Message):
         await m_status.delete()
         print(f"- START PLAYING: {playlist[0].audio.title}")
     if not playlist:
-        pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+        pl = f"{emoji.NO_ENTRY} **قائمة تشغيل فارغة!**"
     else:
         if len(playlist) == 1:
-            pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
+            pl = f"{emoji.REPEAT_SINGLE_BUTTON} **قائمة التشغيل**:\n"
         else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+            pl = f"{emoji.PLAY_BUTTON} **قائمة التشغيل**:\n"
         pl += "\n".join([
             f"**{i}**. **{x.audio.title}**"
             for i, x in enumerate(playlist)
@@ -82,7 +82,7 @@ async def show_current_playing_time(_, m: Message):
     start_time = mp.start_time
     playlist = mp.playlist
     if not start_time:
-        await m.reply_text(f"{emoji.PLAY_BUTTON} **Nothing Playing!**")
+        await m.reply_text(f"{emoji.PLAY_BUTTON} **لا شيء يلعب!**")
         return
     utcnow = datetime.utcnow().replace(microsecond=0)
     #if mp.msg.get('current') is not None:
@@ -104,19 +104,19 @@ async def show_current_playing_time(_, m: Message):
 			)
     )
 
-@Client.on_message(current_vc & filters.command("skip") & filters.user(ADMINS))
+@Client.on_message(current_vc & filters.command("تخطي") & filters.user(ADMINS))
 async def skip_track(_, m: Message):
     playlist = mp.playlist
     if len(m.command) == 1:
         await mp.skip_current_playing()
         playlist = mp.playlist
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **قائمة تشغيل فارغة!**"
         else:
             if len(playlist) == 1:
-                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **قائمة التشغيل**:\n"
             else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.PLAY_BUTTON} **قائمة التشغيل**:\n"
             pl += "\n".join([
                 f"**{i}**. **{x.audio.title}**"
                 for i, x in enumerate(playlist)
@@ -192,11 +192,11 @@ async def list_voice_chat(client, m: Message):
 
 
 @Client.on_message(current_vc
-                   & filters.command("stop") & filters.user(ADMINS))
+                   & filters.command("ايقاف") & filters.user(ADMINS))
 async def stop_playing(_, m: Message):
     group_call = mp.group_call
     group_call.stop_playout()
-    await m.reply_text(f"{emoji.STOP_BUTTON} **Stopped Playing!**")
+    await m.reply_text(f"{emoji.STOP_BUTTON} **تم انهاء التشغيل!**")
     await mp.update_start_time(reset=True)
     mp.playlist.clear()
 
@@ -266,18 +266,18 @@ async def mute(_, m: Message):
 async def unmute(_, m: Message):
     group_call = mp.group_call
     group_call.set_is_mute(False)
-    await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **User Unmuted!**")
+    await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **تمت إعادة صوت المستخدم!**")
 
 @Client.on_message(filters.command("playlist"))
 async def playlist(_, m: Message):
     playlist = mp.playlist
     if not playlist:
-        pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+        pl = f"{emoji.NO_ENTRY} **قائمة تشغيل فارغة!**"
     else:
         if len(playlist) == 1:
-            pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
+            pl = f"{emoji.REPEAT_SINGLE_BUTTON} **قائمة التشغيل**:\n"
         else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+            pl = f"{emoji.PLAY_BUTTON} **قائمة التشغيل**:\n"
         pl += "\n".join([
             f"**{i}**. **{x.audio.title}**"
             for i, x in enumerate(playlist)
