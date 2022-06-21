@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 
 
 
-HOME_TEXT = "👋🏻 **Hi [{}](tg://user?id={})**,\n\nI'm **Radio Player Bot** \nI Can Play Radio/Stream Music In Channels & Groups 24x7 Nonstop. Made with ❤️ By @Darkridersslk!"
+HOME_TEXT = "👋🏻 **Hi [{}](tg://user?id={})**,\n\nI'm **Radio Player Bot** \nI Can Play Radio/Stream Music In Channels & Groups 24x7 Nonstop. Made with ❤️ By @xl444!"
 HELP = """🏷️ **Need Help?** 🤔
 __(Join @SDBOTz For Support)__
 
@@ -38,12 +38,12 @@ __(Join @SDBOTz For Support)__
 async def start(client, message):
     buttons = [
         [
-        InlineKeyboardButton('SDBOTs Channel', url='https://t.me/SDBOTs_inifinity'),
-        InlineKeyboardButton('BOT Support', url='https://t.me/SDBOTz'),
+        InlineKeyboardButton('SDBOTs Channel', url='https://t.me/xl444'),
+        InlineKeyboardButton('BOT Support', url='https://t.me/rr8r9'),
     ],
     [
-        InlineKeyboardButton('MORE BOTS', url='https://t.me/SDBOTs_inifinity/441'),
-        InlineKeyboardButton('Scource Code 💾', url='https://github.com/sadew451/FM'),
+        InlineKeyboardButton('MORE BOTS', url='https://t.me/xl444'),
+        InlineKeyboardButton('Scource Code 💾', url='https://github.com/muntazer995/SoRs'),
     ],
     [
         InlineKeyboardButton('Commands Help ❓', callback_data='help'),
