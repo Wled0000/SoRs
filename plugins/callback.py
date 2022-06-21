@@ -14,7 +14,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         start_time = mp.start_time
         playlist = mp.playlist
         if not start_time:
-            await query.edit_message_text(f"{emoji.PLAY_BUTTON} **Nothing Playing!**")
+            await query.edit_message_text(f"{emoji.PLAY_BUTTON} **لا شيء يلعب!**")
             return
         utcnow = datetime.utcnow().replace(microsecond=0)
         if mp.msg.get('current') is not None:
@@ -62,7 +62,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 f"**{i}**. **{x.audio.title}**"
                 for i, x in enumerate(playlist)
                 ])
-        reply = await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Paused Playing!**\n\n{pl}",
+        reply = await query.edit_message_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **توقف اللعب!**\n\n{pl}",
         reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -80,12 +80,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
         mp.group_call.resume_playout()
         playlist=mp.playlist
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **فارغة!**"
         else:
             if len(playlist) == 1:
-                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.REPEAT_SINGLE_BUTTON} **التشغيل**:\n"
             else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.PLAY_BUTTON} **التشغيل**:\n"
             pl += "\n".join([
                 f"**{i}**. **{x.audio.title}**"
                 for i, x in enumerate(playlist)
@@ -107,19 +107,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
         playlist = mp.playlist
         await mp.skip_current_playing()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} **Empty Playlist!**"
+            pl = f"{emoji.NO_ENTRY} **فارغة .!**"
         else:
             if len(playlist) == 1:
                 pl = f"{emoji.REPEAT_SINGLE_BUTTON} **Playlist**:\n"
             else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n"
+                pl = f"{emoji.PLAY_BUTTON} **قائمة التشغيل**:\n"
             pl += "\n".join([
                 f"**{i}**. **{x.audio.title}**"
                 for i, x in enumerate(playlist)
                 ])
 
         try:
-            await query.edit_message_text(f"⏭ **Skipped Track!**\n\n{pl}",
+            await query.edit_message_text(f"⏭ **تم التخطي!**\n\n{pl}",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -134,11 +134,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
         except:
             pass
     elif query.data=="help":
-        await query.edit_message_text("🙋‍♂️ **Hi Bruh**, \nJust Send Me An Audio File To Play. You Can Use @TheNatsukiBot To Get Audio Files! 😌\n\nCheck /help To Know More ...",
+        await query.edit_message_text("🙋‍♂️ **ههلو**, \nفقط أرسل لي ملف صوتي لتشغيله. يمكنك استخدام @rr8r9 للحصول على ملفات الصوت! 😌\n\nارسل /المساعدة لمعرفة المزيد ...",
         reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Close 🔐", callback_data="close"),
+                        InlineKeyboardButton("مسح 🔐", callback_data="close"),
                     ],
                 ]
             )
